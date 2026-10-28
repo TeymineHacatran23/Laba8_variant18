@@ -1,0 +1,82 @@
+
+n = int(input("Введите количество строк n: "))
+m = int(input("Введите количество столбцов m: "))
+
+A = []
+
+print("Введите элементы массива по строкам:")
+for i in range(n):
+    row = list(map(int, input().split()))
+    A.append(row)
+
+# 5.1
+B = [A[i][:] for i in range(n)]
+
+for i in range(n):
+    maximum = max(B[i])
+    index = B[i].index(maximum)
+
+    for j in range(index + 1, m):
+        B[i][j] = 0
+
+print("5.1:")
+for row in B:
+    print(*row)
+
+
+# 5.2
+B = [A[i][:] for i in range(n)]
+
+for j in range(m):
+    minimum = B[0][j]
+    
+    for i in range(n):
+        if B[i][j] < minimum:
+            minimum = B[i][j]
+
+    for i in range(n):
+        if B[i][j] == minimum:
+            break
+        B[i][j] = minimum
+
+print("5.2:")
+for row in B:
+    print(*row)
+
+
+# 5.3
+B = [A[i][:] for i in range(n)]
+
+for i in range(n):
+    if B[i][0] > B[i][m - 1]:
+        B[i].reverse()
+
+print("5.3:")
+for row in B:
+    print(*row)
+
+
+# 5.4
+B = [A[i][:] for i in range(n)]
+
+k = n // 2
+
+for j in range(m):
+    upper_sum = 0
+    lower_sum = 0
+
+    for i in range(k):
+        upper_sum += B[i][j]
+
+    for i in range(n - k, n):
+        lower_sum += B[i][j]
+
+    if upper_sum > lower_sum:
+        for i in range(k):
+            temp = B[i][j]
+            B[i][j] = B[n - 1 - i][j]
+            B[n - 1 - i][j] = temp
+
+print("5.4:")
+for row in B:
+    print(*row)
